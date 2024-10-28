@@ -16,10 +16,9 @@ const ForumSearch = () => {
   return (
     <Card className="m-2 flex flex-col gap-2 p-2 bg-primary-50">
       <Input
-        isDisabled
         type="text"
         className="w-full"
-        placeholder="Search"
+        placeholder="Title"
         endContent={
           <MdSearch
             className="cursor-pointer hover:text-primary-500 transition-all duration-300 ease-in-out"
@@ -35,8 +34,8 @@ const ForumSearch = () => {
           title="Filters"
           onPress={() => setAccordion(!accordion)}
         >
-          <Input type="text" placeholder="Filter" className="w-full" />
-          <Input type="text" placeholder="Filter" className="w-full" />
+          <Input type="text" placeholder="@username" className="w-full" />
+          <Input type="text" placeholder="Name" className="w-full" />
           <Input type="text" placeholder="Filter" className="w-full" />
         </AccordionItem>
       </Accordion>
