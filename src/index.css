@@ -4,18 +4,8 @@
 @tailwind utilities;
 
 :root {
-  --background-image: linear-gradient(15deg, #021824 0%, #26353d00 100%);
-  background-image: var(--background-image);
-  background-attachment: fixed;
-  background-size: cover;
-  background-repeat: no-repeat;
-  
+
   min-height: 100vh;
-}
-
-.light{
-  --background-image: linear-gradient(15deg, #a5c6d8 0%, #00000000 100%);
-
 }
 
 .navbar{

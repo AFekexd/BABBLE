@@ -19,18 +19,15 @@ import {
   Tabs,
   useDisclosure,
 } from "@nextui-org/react";
-import { useTheme } from "next-themes";
 import { Key, useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 import ProfileModal from "../Modals/ProfileModal";
-import ThemeModal from "../Modals/ThemeModal";
 import { useAppDispatch } from "../../app/hooks";
 import { deleteCredentials } from "../../features/auth/authSlice";
 import { useLogoutMutation } from "../../features/auth/authApiSlice";
-import { CustomToast } from "../CustomToast";
 import PersonalAvatar from "../Avatar/PersonalAvatar";
 import { useLazyGetPersonalPfpQuery } from "../../features/user/userApiSlice";
+import ThemeSelector from "../ThemeSwitcher/ThemeSwitcher";
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {
@@ -39,13 +36,6 @@ const Navigation = () => {
     onOpen: openProfile,
   } = useDisclosure();
 
-  const {
-    isOpen: isThemeOpen,
-    onOpenChange: setThemeOpen,
-    onOpen: openTheme,
-  } = useDisclosure();
-
-  const { theme } = useTheme();
   const [trigger, { isLoading }] = useLogoutMutation();
   const menuItems = [
     {
@@ -62,13 +52,8 @@ const Navigation = () => {
   const currentPath = window.location.pathname.split("/")[1];
 
   function logout() {
-    trigger({}).then((res) => {
-      console.log(res);
-      if (res) {
-        dispatch(deleteCredentials());
-      } else {
-        CustomToast("Sikertelen kijelentkezés", "error");
-      }
+    trigger({}).finally((res) => {
+      dispatch(deleteCredentials());
     });
   }
 
@@ -99,6 +84,7 @@ const Navigation = () => {
         isMenuOpen={isMenuOpen}
         onMenuOpenChange={setIsMenuOpen}
         aria-label="Main navigation"
+        className="sticky top-0 z-50 bg-primary-400"
       >
         <NavbarContent className="sm:hidden" justify="start">
           <NavbarMenuToggle
@@ -110,7 +96,6 @@ const Navigation = () => {
           <NavbarBrand>
             <Link as={RouterLink} to="/" aria-current="page">
               <Image
-                className={theme === "light" ? "invert" : ""}
                 src="/logobabble.png"
                 alt="Chatter"
                 width={100}
@@ -124,7 +109,6 @@ const Navigation = () => {
           <NavbarBrand>
             <Link as={RouterLink} to="/" className="font-bold text-inherit">
               <Image
-                className={theme === "light" ? "invert" : ""}
                 src="/logobabble.png"
                 alt="Chatter"
                 width={125}
@@ -136,7 +120,11 @@ const Navigation = () => {
             <NavbarItem key={`${item}-${index}`}>
               <Link
                 as={RouterLink}
-                color={item.href === "/" + currentPath ? "warning" : "primary"}
+                className={
+                  item.href === "/" + currentPath
+                    ? "text-foreground"
+                    : "text-primary-700"
+                }
                 style={{ fontWeight: 500 }}
                 to={item.href}
                 size="lg"
@@ -148,12 +136,11 @@ const Navigation = () => {
         </NavbarContent>
 
         <NavbarContent justify="end">
-          <NavbarItem className="lg:flex">
-            <ThemeSwitcher />
+          <NavbarItem className="cursor-pointer">
+            <ThemeSelector />
           </NavbarItem>
-
           {
-            <NavbarItem>
+            <NavbarItem className="cursor-pointer">
               <Dropdown>
                 <DropdownTrigger>
                   <div>
@@ -199,13 +186,7 @@ const Navigation = () => {
                   <DropdownItem key="profile" onClick={openProfile}>
                     Profil
                   </DropdownItem>
-                  <DropdownItem
-                    key="themes"
-                    onClick={openTheme}
-                    description="Oldal témáinak váltása"
-                  >
-                    Témák
-                  </DropdownItem>
+
                   {true && (
                     <DropdownItem
                       key="admin"
@@ -241,7 +222,10 @@ const Navigation = () => {
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
                 as={RouterLink}
-                color={item.href === "/" + currentPath ? "warning" : "primary"}
+                color={"primary"}
+                className={
+                  item.href === "/" + currentPath ? "text-primary-800" : ""
+                }
                 style={{ fontWeight: 500 }}
                 to={item.href}
                 size="lg"
@@ -259,7 +243,6 @@ const Navigation = () => {
         isOpen={isProfileOpen}
         onOpenChange={setProfileOpen}
       />
-      <ThemeModal isOpen={isThemeOpen} onOpenChange={setThemeOpen} />
     </>
   );
 };

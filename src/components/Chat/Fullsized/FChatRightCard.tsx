@@ -17,8 +17,8 @@ const FChatRightCard = () => {
   const [isFollowed, setIsFollowed] = useState(false);
   const [status, setStatus] = useState("danger");
   return (
-    <Card className="w-5/6 p-2  bg-transparent dark:bg-gray-900 hover:bg-gray-200 hover:dark:bg-slate-900">
-      <CardHeader className="justify-between bg-[#f9f9f9] dark:bg-gray-800 p-3">
+    <Card className="w-5/6 p-0 bg-transparent hover:bg-primary-50">
+      <CardHeader className="justify-between bg-primary p-3">
         <div className="flex gap-5">
           <Avatar
             isBordered
@@ -28,10 +28,10 @@ const FChatRightCard = () => {
             src="https://nextui.org/avatars/avatar-1.png"
           />
           <div className="flex flex-col gap-1 items-start justify-center">
-            <h4 className="text-small font-semibold leading-none text-default-600">
+            <h4 className="text-small font-semibold leading-none text-secondary">
               Zoey Lang
             </h4>
-            <h5 className="text-small tracking-tight text-default-400">
+            <h5 className="text-small tracking-tight text-secondary-100">
               @zoeylang
             </h5>
           </div>

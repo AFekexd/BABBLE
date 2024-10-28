@@ -20,7 +20,7 @@ const Messages = () => {
 
   return (
     <>
-      <div className="hidden sm:flex flex-row p-1 md:p-3 lg:p-10  h-[92dvh] gap-5">
+      <div className="hidden sm:flex flex-row p-1 md:p-3 lg:p-10 w-full  h-[92dvh] gap-5 ">
         <FChatLeftCard
           onOpen={onOpen}
           selected={selected}

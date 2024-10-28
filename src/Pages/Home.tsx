@@ -3,12 +3,12 @@ import { Card, Image, Link } from "@nextui-org/react";
 import { Link as RouterLink } from "react-router-dom";
 const Home = () => {
   return (
-    <div className="bg-transparent w-11/12 h-full mb-3 justify-center">
-      <div className="flex gap-10 justify-center items-center flex-wrap h-full">
+    <div className="bg-transparent h-full mb-3 justify-center">
+      <div className="flex gap-10 justify-center items-center flex-wrap  h-full ">
         <Card
           isFooterBlurred
           radius="lg"
-          className="border-none hover:shadow-medium hover:shadow-medium hover:scale-105"
+          className="border-none hover:shadow-medium hover:scale-105"
         >
           <Link
             as={RouterLink}

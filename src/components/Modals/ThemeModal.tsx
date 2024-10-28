@@ -7,6 +7,8 @@ import {
   ModalBody,
   ModalFooter,
 } from "@nextui-org/react";
+import "./theme.css";
+import ThemeSelector from "../ThemeSwitcher/ThemeSwitcher";
 
 const ThemeModal = ({ isOpen, onOpenChange }) => {
   return (
@@ -17,7 +19,11 @@ const ThemeModal = ({ isOpen, onOpenChange }) => {
             <ModalHeader className="flex flex-col gap-1 bg-primary">
               Profil megtekintése
             </ModalHeader>
-            <ModalBody></ModalBody>
+            <ModalBody>
+              <div className="flex justify-center gap-3">
+                <ThemeSelector />
+              </div>
+            </ModalBody>
             <ModalFooter></ModalFooter>
           </>
         )}

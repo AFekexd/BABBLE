@@ -3,7 +3,17 @@
 import ForumItem from "./ForumItem";
 import { Card, Pagination, Skeleton } from "@nextui-org/react";
 
-const ForumList = ({ data, isLoading, page, setPage }) => {
+const ForumList = ({
+  data,
+  isLoading,
+  page,
+  setPage,
+}: {
+  data: any;
+  isLoading: boolean;
+  page: any;
+  setPage: any;
+}) => {
   return (
     <div className="h-[75dvh] ">
       <div className="w-full flex flex-col gap-5 p-2 overflow-y-auto min-h-[85%] max-h-[85%]">
@@ -27,6 +37,7 @@ const ForumList = ({ data, isLoading, page, setPage }) => {
             onChange={(e) => setPage(e)}
             total={Math.ceil(data.total / 6)}
             initialPage={1}
+            color="primary"
           />
         )}
       </div>

@@ -14,7 +14,7 @@ const ForumSearch = () => {
   const [search, setSearch] = useState("");
   const [accordion, setAccordion] = useState(false);
   return (
-    <Card className="m-2 flex flex-col gap-2 p-2">
+    <Card className="m-2 flex flex-col gap-2 p-2 bg-primary-50">
       <Input
         isDisabled
         type="text"

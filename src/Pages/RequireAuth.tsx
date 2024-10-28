@@ -3,9 +3,10 @@
 import Forbidden from "./Forbidden";
 import { useEffect, useState } from "react";
 import Login from "./Login";
-import { Outlet, Router, useNavigate } from "react-router-dom";
+import { NavigateOptions, Outlet, Router, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { DecodeToken } from "../features/jwt";
+import Navigation from "../components/Navigation/Navigation";
 
 type Props = {
   roles: string[];
@@ -16,7 +17,7 @@ const RequireAuth: React.FunctionComponent<Props> = (props) => {
   const jwt = useSelector((state) => state.user.jwt);
   const refreshToken = useSelector((state) => state.user.refresh_token);
   const router = Router;
-  const navigate = useNavigate();
+  const navigate: (to: To, options?: NavigateOptions) => void = useNavigate();
   useEffect(() => {
     if (jwt) {
       const token = DecodeToken(jwt);
@@ -38,7 +39,10 @@ const RequireAuth: React.FunctionComponent<Props> = (props) => {
   return !isLogged ? (
     <Login />
   ) : !props.roles.includes("ADMIN") ? (
-    <Outlet />
+    <div className="flex flex-col h-screen gap-4">
+      <Navigation />
+      <Outlet />
+    </div>
   ) : (
     <Forbidden />
   );

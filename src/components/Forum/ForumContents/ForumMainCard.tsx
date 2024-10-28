@@ -1,12 +1,22 @@
-//@ts-nocheck
 //TODO: REMOVE NO CHECK FOR FINAL BUILD
-import { Card, Chip, Divider, Skeleton } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  Chip,
+  Divider,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Skeleton,
+} from "@nextui-org/react";
 import UserAvatar from "../../Avatar/UserAvatar";
 import { useGetUserViaIdQuery } from "../../../features/user/userApiSlice";
 import { useEffect } from "react";
 import { User } from "../../../types/User";
 
 import "./Content.css";
+import { BiDotsHorizontal } from "react-icons/bi";
 
 const ForumMainCard = ({ item, isLoading }) => {
   const { data: userData, refetch } = useGetUserViaIdQuery(
@@ -111,6 +121,30 @@ const ForumMainCard = ({ item, isLoading }) => {
                 ))}
               </p>
             </div>
+          </div>
+          <div className="justify-self-end">
+            {" "}
+            <Dropdown>
+              <DropdownTrigger>
+                <Button
+                  variant="bordered"
+                  isIconOnly
+                  startContent={<BiDotsHorizontal />}
+                ></Button>
+              </DropdownTrigger>
+              <DropdownMenu aria-label="Static Actions">
+                <DropdownItem key="new">New file</DropdownItem>
+                <DropdownItem key="copy">Copy link</DropdownItem>
+                <DropdownItem key="edit">Edit file</DropdownItem>
+                <DropdownItem
+                  key="delete"
+                  className="text-danger"
+                  color="danger"
+                >
+                  Delete file
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
           </div>
         </div>
         <Divider />

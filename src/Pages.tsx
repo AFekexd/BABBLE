@@ -1,92 +1,52 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./Pages/Home";
-import Messages from "./Pages/Messages";
-import Notfound from "./Pages/Notfound";
-import Register from "./Pages/Register";
-import Navigation from "./components/Navigation/Navigation";
-import Forum from "./Pages/Forum";
-import ForumContent from "./components/Forum/ForumContent";
-import Admin from "./Pages/Admin";
 import RequireAuth from "./Pages/RequireAuth";
+import { Suspense, lazy } from "react";
+import { Spinner } from "@nextui-org/react";
+
+const homePage = lazy(() => import("./Pages/Home"));
+const messagesPage = lazy(() => import("./Pages/Messages"));
+const forumPage = lazy(() => import("./Pages/Forum"));
+const forumContentPage = lazy(() => import("./components/Forum/ForumContent"));
+const adminPage = lazy(() => import("./Pages/Admin"));
+const registerPage = lazy(() => import("./Pages/Register"));
+const notfoundPage = lazy(() => import("./Pages/Notfound"));
 
 const Pages = () => {
-  //use the react redux to check if the user is logged in
+  const lazyElement = (
+    Component: React.LazyExoticComponent<() => JSX.Element>
+  ) => {
+    return (
+      <Suspense
+        fallback={
+          <div className="loading flex justify-center items-center h-screen">
+            <Spinner size="lg" />
+          </div>
+        }
+      >
+        <Component />
+      </Suspense>
+    );
+  };
 
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<RequireAuth roles={["MUNKALAP_CREATE"]} />}>
-          <Route
-            index
-            path="/"
-            element={
-              <div className="flex flex-col items-center justify-center h-screen gap-4">
-                <Navigation />
-                <Home />
-              </div>
-            }
-          ></Route>
-          <Route
-            index
-            path="/chat"
-            element={
-              <>
-                <Navigation />
-                <Messages />
-              </>
-            }
-          ></Route>
-          <Route
-            index
-            path="/forum"
-            element={
-              <>
-                <Navigation />
-                <Forum />
-              </>
-            }
-          ></Route>
+          <Route index path="/" element={lazyElement(homePage)}></Route>
+          <Route index path="/chat" element={lazyElement(messagesPage)}></Route>
+          <Route index path="/forum" element={lazyElement(forumPage)}></Route>
 
-          <Route
-            path="*"
-            element={
-              <div className="flex flex-col items-center justify-center h-screen gap-4">
-                <Navigation />
-                <Notfound />
-              </div>
-            }
-          ></Route>
+          <Route path="*" element={lazyElement(notfoundPage)}></Route>
           <Route
             path="/forum/:forumId"
-            element={
-              <div className="flex flex-col items-center justify-center h-screen gap-4">
-                <Navigation />
-                <ForumContent />
-              </div>
-            }
+            element={lazyElement(forumContentPage)}
           ></Route>
           {true && (
-            <Route
-              path="/admin"
-              element={
-                <>
-                  <Navigation />
-                  <Admin />
-                </>
-              }
-            ></Route>
+            <Route path="/admin" element={lazyElement(adminPage)}></Route>
           )}
-          <Route
-            path="*"
-            element={
-              <div className="flex flex-col items-center justify-center h-screen gap-4">
-                <Navigation />
-                <Notfound />
-              </div>
-            }
-          ></Route>
+          <Route path="*" element={lazyElement(notfoundPage)}></Route>
         </Route>
-        <Route path="/register" element={<Register />}></Route>
+        <Route path="/register" element={lazyElement(registerPage)}></Route>
       </Routes>
     </BrowserRouter>
   );

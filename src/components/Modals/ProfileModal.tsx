@@ -11,6 +11,7 @@ import {
   Button,
   Image,
   ButtonGroup,
+  Avatar,
 } from "@nextui-org/react";
 import { useEffect, useRef, useState } from "react";
 import { User } from "../../types/User";
@@ -19,11 +20,7 @@ import "cropperjs/dist/cropper.css";
 import { useUploadUserImageMutation } from "../../features/user/userApiSlice";
 const ProfileModal = ({ pfp, refetchPfp, isOpen, onOpenChange }) => {
   const [editMode, setEditMode] = useState(false);
-  const [user, setUser] = useState({
-    id: 1,
-    name: "tesztelek",
-    email: "teszt@teszt.hu",
-  } as User);
+  const [user, setUser] = useState({} as User);
 
   const [image, setImage] = useState("");
   const [croppedImage, setCroppedImage] = useState();
@@ -55,6 +52,19 @@ const ProfileModal = ({ pfp, refetchPfp, isOpen, onOpenChange }) => {
               Profil megtekintése
             </ModalHeader>
             <ModalBody>
+              {!pfp && image == "" && (
+                <label
+                  htmlFor="pfp-upload"
+                  className="cursor-pointer translate-y-5 flex justify-center"
+                >
+                  <Avatar
+                    style={{ height: 400, width: "100%" }}
+                    isZoomed
+                    src={pfp}
+                    isBlurred
+                  />
+                </label>
+              )}
               {pfp && image == "" && (
                 <label
                   htmlFor="pfp-upload"
@@ -140,7 +150,7 @@ const ProfileModal = ({ pfp, refetchPfp, isOpen, onOpenChange }) => {
                 </>
               ) : (
                 <>
-                  <div className="flex flex-col gap-2 p-">
+                  <div className="flex-col gap-2 hidden">
                     <Card></Card>
                     <Card>
                       <p>Név: {user.name}</p>
@@ -149,7 +159,7 @@ const ProfileModal = ({ pfp, refetchPfp, isOpen, onOpenChange }) => {
                   </div>
                 </>
               )}
-              <button onClick={() => setEditMode(!editMode)}>
+              <button onClick={() => setEditMode(!editMode)} className="hidden">
                 {editMode ? "Mentés" : "Szerkesztés"}
               </button>
             </ModalBody>

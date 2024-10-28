@@ -12,7 +12,7 @@ const ForumItem = ({ item }: { item: any }) => {
   return (
     <>
       <Link to={`/forum/` + item.id}>
-        <Card className="space-y-4 p-1 sm:p-2 hover:bg-gray-700">
+        <Card className="space-y-4 p-1 sm:p-2 hover:brightness-125 bg-primary-50">
           <div className="flex flex-row gap-1 sm:gap-2 w-full">
             <div className="w-6/12 sm:2/12 flex flex-row">
               {item && (

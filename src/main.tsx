@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <PersistGate loading={<Spinner />} persistor={persistor}>
         <NextUIProvider>
-          <NextThemesProvider attribute="class" defaultTheme="dark">
+          <NextThemesProvider attribute="class" defaultTheme="azure-dark">
             <App />
           </NextThemesProvider>
         </NextUIProvider>
