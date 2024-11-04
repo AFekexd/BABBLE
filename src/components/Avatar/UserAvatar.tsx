@@ -25,7 +25,18 @@ const UserAvatar = ({
     }
   }, [userID, pfpTrigger]);
 
-  return <Avatar size={size} src={pfp} showFallback className={className} />;
+  return (
+    <Avatar
+      size={size}
+      src={pfp}
+      showFallback
+      className={
+        className
+          ? className
+          : "md:min-w-20 md:min-h-20 min-w-12 min-h-12 w-12 h-12"
+      }
+    />
+  );
 };
 
 export default UserAvatar;

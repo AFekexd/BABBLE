@@ -3,9 +3,17 @@ import { useEffect } from "react";
 import ForumCommentSkel from "./ForumCommentSkel";
 import ForumComment from "./ForumComment";
 import CommentCreator from "./CommentCreator";
+import { useSelector } from "react-redux";
+import { DecodeToken } from "../../../features/jwt";
 
 const ForumCommentList = () => {
-  const [getComments, { data, error, isLoading }] = useLazyGetCommentsQuery();
+  const jwt = useSelector((state: any) => state.user.jwt);
+
+  const decoded = DecodeToken(jwt) as { sub: string };
+
+  const [getComments, { data, error, isLoading }] = useLazyGetCommentsQuery({
+    pollingInterval: 50000,
+  });
   const postId = window.location.pathname.split("/")[2];
   useEffect(() => {
     getComments(postId);
@@ -17,7 +25,7 @@ const ForumCommentList = () => {
 
   return (
     <div className="flex flex-col gap-4 mt-12">
-      <CommentCreator id={postId} />
+      <CommentCreator id={postId} user_id={decoded.sub} />
       {isLoading &&
         Array(5)
           .fill(0)
@@ -30,7 +38,11 @@ const ForumCommentList = () => {
       {!isLoading &&
         data &&
         data.map((comment) => (
-          <ForumComment key={comment.id} comment={comment as any} />
+          <ForumComment
+            key={comment.id}
+            comment={comment as any}
+            user_id={decoded.sub}
+          />
         ))}
       {data && data.length === 0 && (
         <>

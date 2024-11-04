@@ -10,8 +10,8 @@ export const forumCommentApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     createComment: builder.mutation({
-      query: ({ threadId, body }) => ({
-        url: `/forum/thread/${threadId}/comment`,
+      query: ({ body }) => ({
+        url: `/forum/thread/comment`,
         method: "POST",
         body,
       }),
@@ -29,15 +29,17 @@ export const forumCommentApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
-    upvoteComment: builder.mutation({
-      query: ({ threadId, commentId }) => ({
-        url: `/forum/thread/${threadId}/comment/${commentId}/upvote`,
-        method: "PUT",
-      }),
-    }),
-    downvoteComment: builder.mutation({
-      query: ({ threadId, commentId }) => ({
-        url: `/forum/thread/${threadId}/comment/${commentId}/downvote`,
+    voteComment: builder.mutation({
+      query: ({
+        commentId,
+        type,
+        user_id,
+      }: {
+        commentId: string;
+        type: "upvotes" | "downvotes";
+        user_id: string;
+      }) => ({
+        url: `/forum/thread/comment/${type}/${commentId}/${user_id}`,
         method: "PUT",
       }),
     }),
@@ -50,6 +52,5 @@ export const {
   useCreateCommentMutation,
   useDeleteCommentMutation,
   useUpdateCommentMutation,
-  useUpvoteCommentMutation,
-  useDownvoteCommentMutation,
+  useVoteCommentMutation,
 } = forumCommentApiSlice;
