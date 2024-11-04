@@ -12,7 +12,7 @@ import {
 
 import { useState } from "react";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
-import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher";
+import ThemeSwitcher from "../components/Switchers/ThemeSwitcher";
 import { useTheme } from "next-themes";
 import { CustomToast } from "../components/CustomToast";
 import { useRegisterMutation } from "../features/auth/authApiSlice";

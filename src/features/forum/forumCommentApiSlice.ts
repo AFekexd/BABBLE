@@ -46,7 +46,7 @@ export const forumCommentApiSlice = apiSlice.injectEndpoints({
 });
 
 export const {
-  useGetCommentsQuery,
+  useLazyGetCommentsQuery,
   useCreateCommentMutation,
   useDeleteCommentMutation,
   useUpdateCommentMutation,

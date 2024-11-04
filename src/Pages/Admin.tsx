@@ -58,20 +58,10 @@ const Admin = () => {
 
   return (
     <>
-      <div className="flex w-full h-[90dvh] justify-evenly  gap-5 mt-3 p-4 ">
-        <div className="flex flex-col gap-3 sm:w-2/12 h-full justify-between min-w-fit">
+      <div className="flex flex-col md:flex-row w-full h-[90dvh] justify-center  gap-5 mt-3 p-4 ">
+        <div className="flex flex-row md:flex-col gap-3 sm:w-2/12 md:h-full md:justify-between min-w-fit">
           <Card className="h-fit p-3">
-            {/* 
-          List of admin actions as buttons: 
-            - Manage users
-            - Manage posts
-            - Manage comments
-            - Manage categories
-            - Profinity filter
-            - Manage reports
-          */}
-
-            <div className="flex flex-col gap-3 ">
+            <div className="flex md:flex-col gap-3 ">
               <Button
                 color={"primary"}
                 variant={activeTab === "users" ? "solid" : "flat"}
@@ -130,7 +120,7 @@ const Admin = () => {
           </Card>
         </div>
 
-        <Card className="sm:w-10/12 h-full p-3">
+        <Card className="sm:w-10/12  p-3">
           <CardHeader
             className="flex justify-between items-center"
             title="Admin"

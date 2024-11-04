@@ -48,7 +48,7 @@ const ThemeSelector = () => {
   };
 
   return (
-    <div className="p-4 flex gap 2">
+    <div className="flex gap 2">
       <Popover placement="bottom" showArrow offset={10}>
         <PopoverTrigger>
           <Button color="default" variant="faded" isIconOnly>

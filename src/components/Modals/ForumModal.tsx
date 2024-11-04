@@ -100,6 +100,7 @@ const ForumModal = ({
                         "Sikeresen létrehoztad a fórum posztot",
                         "success"
                       );
+
                       console.log(res.data);
                     }
 

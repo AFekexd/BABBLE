@@ -11,7 +11,7 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
-import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher";
+import ThemeSwitcher from "../components/Switchers/ThemeSwitcher";
 import { useLoginMutation } from "../features/auth/authApiSlice";
 import { useAppDispatch } from "../app/hooks";
 

@@ -1,6 +1,6 @@
 import ForumList from "../components/Forum/ForumList";
 
-import { Button, Divider, Tooltip, useDisclosure } from "@nextui-org/react";
+import { Divider, Tooltip, useDisclosure } from "@nextui-org/react";
 import { FaPlus } from "react-icons/fa";
 import ForumModal from "../components/Modals/ForumModal";
 
@@ -19,7 +19,7 @@ const Forum = () => {
 
   const getData = () => {
     trigger({
-      offset: (page - 1) * 6,
+      offset: (page - 1) * 5,
     }).then((res) => {
       setData(res.data);
       console.log(res.data);
@@ -37,7 +37,7 @@ const Forum = () => {
           <FaPlus className="text-white" size={25} />
         </div>
       </Tooltip>
-      <div className="w-[95%] md:w-[70%] m-auto ">
+      <div className="w-[95%] md:w-[60%] m-auto ">
         <div id="forumBody" className="  gap-4 h-95dvh sm:h-50dvh">
           <div id="forumList">
             <div id="forumHeader">
@@ -50,11 +50,6 @@ const Forum = () => {
               setPage={setPage}
             />
 
-            <div className="p-2 sm:hidden mb-2">
-              <Button className="w-full" color="primary" variant="solid">
-                Load More
-              </Button>
-            </div>
             <Divider className="sm:hidden" />
           </div>
         </div>

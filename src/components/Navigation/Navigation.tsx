@@ -27,7 +27,8 @@ import { deleteCredentials } from "../../features/auth/authSlice";
 import { useLogoutMutation } from "../../features/auth/authApiSlice";
 import PersonalAvatar from "../Avatar/PersonalAvatar";
 import { useLazyGetPersonalPfpQuery } from "../../features/user/userApiSlice";
-import ThemeSelector from "../ThemeSwitcher/ThemeSwitcher";
+import ThemeSelector from "../Switchers/ThemeSwitcher";
+import LangSwitcher from "../Switchers/LangSwitcher";
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {
@@ -136,9 +137,15 @@ const Navigation = () => {
         </NavbarContent>
 
         <NavbarContent justify="end">
-          <NavbarItem className="cursor-pointer">
-            <ThemeSelector />
-          </NavbarItem>
+          <div className="flex gap-2 items-center">
+            <NavbarItem className="cursor-pointer">
+              <ThemeSelector />
+            </NavbarItem>
+            <NavbarItem className="cursor-pointer">
+              <LangSwitcher />
+            </NavbarItem>
+          </div>
+
           {
             <NavbarItem className="cursor-pointer">
               <Dropdown>

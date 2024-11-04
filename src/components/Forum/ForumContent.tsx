@@ -20,7 +20,7 @@ const ForumContent = () => {
       <ForumMainCard item={data} isLoading={isLoading} />
 
       <Divider className="w-5/6 h-2 rounded-lg m-auto" />
-      <ForumCommentList />
+      <ForumCommentList id={data} />
     </div>
   );
 };

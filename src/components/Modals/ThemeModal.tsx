@@ -8,7 +8,7 @@ import {
   ModalFooter,
 } from "@nextui-org/react";
 import "./theme.css";
-import ThemeSelector from "../ThemeSwitcher/ThemeSwitcher";
+import ThemeSelector from "../Switchers/ThemeSwitcher";
 
 const ThemeModal = ({ isOpen, onOpenChange }) => {
   return (

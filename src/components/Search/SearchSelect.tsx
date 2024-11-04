@@ -4,13 +4,31 @@ import {
   useLazySearchTagsQuery,
 } from "../../features/forum/tagsApiSlice";
 import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 
 interface Option {
   [x: string]: string;
   readonly value: string;
   readonly label: string;
 }
-const SearchSelect = ({ setTags }: { setTags: (tags: string[]) => void }) => {
+const SearchSelect = ({
+  setTags,
+  type,
+  style,
+}: {
+  setTags: (tags: string[]) => void;
+  type?: string;
+  style?: string;
+}) => {
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    if (theme === "lime-light") {
+      setColor("#f8f8f2");
+    } else {
+      setColor("hsl(240 3.7% 15.88% / 1)");
+    }
+  }, [theme]);
   const createOption = (id: string, name: string): Option => ({
     value: id,
     label: name,
@@ -23,7 +41,9 @@ const SearchSelect = ({ setTags }: { setTags: (tags: string[]) => void }) => {
   const promiseOptions = async (inputValue: string) => {
     if (!inputValue) return [];
     if (inputValue.length < 3) return [];
-    const response = await trigger(inputValue.toLocaleLowerCase());
+    const response = await trigger(inputValue.toLocaleLowerCase()).then((res) =>
+      console.log(res)
+    );
     return response.data.map((tag: Option) => createOption(tag.id, tag.name));
   };
 
@@ -38,6 +58,8 @@ const SearchSelect = ({ setTags }: { setTags: (tags: string[]) => void }) => {
     ]);
   };
 
+  const [color, setColor] = useState("hsl(240 3.7% 15.88% / 1)");
+
   useEffect(() => {
     setTags(selectedTags.map((tag) => tag.value));
   }, [selectedTags, setTags]);
@@ -45,9 +67,10 @@ const SearchSelect = ({ setTags }: { setTags: (tags: string[]) => void }) => {
   return (
     <AsyncCreatableSelect
       isClearable
-      isMulti
+      isMulti={type !== "tag"}
       isLoading={isLoading}
       defaultOptions
+      className={style}
       loadOptions={promiseOptions}
       onCreateOption={handleCreate}
       noOptionsMessage={() => "Nincs találat"}
@@ -60,25 +83,25 @@ const SearchSelect = ({ setTags }: { setTags: (tags: string[]) => void }) => {
         control: (provided) => ({
           ...provided,
           width: "100%",
-          backgroundColor: "#3f3f46",
-          borderColor: "#3f3f46",
+          backgroundColor: color,
+          borderColor: theme === "lime-light" ? "#f8f8f2" : "#3f3f46",
           hover: {
-            borderColor: "#bd93f9",
+            borderColor: theme === "lime-light" ? "#f8f8f2" : "#3f3f46",
           },
         }),
         menu: (provided) => ({
           ...provided,
           width: "100%",
-          backgroundColor: "#3f3f46",
+          backgroundColor: theme === "lime-light" ? "#f8f8f2" : "#3f3f46",
         }),
         option: (provided) => ({
           ...provided,
-          backgroundColor: "#29292e",
+          backgroundColor: theme === "lime-light" ? "#f8f8f2" : "#3f3f46",
           color: "#f8f8f2",
         }),
         multiValue: (provided) => ({
           ...provided,
-          backgroundColor: "#f5a524",
+          backgroundColor: theme === "lime-light" ? "#f8f8f2" : "#3f3f46",
         }),
         multiValueLabel: (provided) => ({
           ...provided,
@@ -88,13 +111,13 @@ const SearchSelect = ({ setTags }: { setTags: (tags: string[]) => void }) => {
           ...provided,
           color: "#f8f8f2",
           hover: {
-            backgroundColor: "#bd93ff",
+            backgroundColor: theme === "lime-light" ? "#f8f8f2" : "#3f3f46",
             color: "#f8f8f2",
           },
         }),
         input: (provided) => ({
           ...provided,
-          color: "#f8f8f2",
+          color: theme === "lime-light" ? "#3f3f46" : "#f8f8f2",
         }),
       }}
     />
